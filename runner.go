@@ -150,6 +150,16 @@ func (r *Runner) Start() {
 			log.Printf("[INFO] (runner) quiescence maxTimer fired")
 			r.minTimer, r.maxTimer = nil, nil
 		case err := <-r.watcher.ErrCh:
+			// If this is our own internal error, see if we should hard exit.
+			if derr, ok := err.(*dep.FetchError); ok {
+				log.Printf("[DEBUG] (runner) detected custom error type")
+				if derr.ShouldExit() {
+					log.Printf("[DEBUG] (runner) custom error asked for hard exit")
+					r.ErrCh <- derr.OriginalError()
+					return
+				}
+			}
+
 			// Intentionally do not send the error back up to the runner. Eventually,
 			// once Consul API implements errwrap and multierror, we can check the
 			// "type" of error and conditionally alert back.
@@ -614,13 +624,14 @@ func newClientSet(config *Config) (*dep.ClientSet, error) {
 	}
 
 	if err := clients.CreateVaultClient(&dep.CreateVaultClientInput{
-		Address:    config.Vault.Address,
-		Token:      config.Vault.Token,
-		SSLEnabled: config.Vault.SSL.Enabled,
-		SSLVerify:  config.Vault.SSL.Verify,
-		SSLCert:    config.Vault.SSL.Cert,
-		SSLKey:     config.Vault.SSL.Key,
-		SSLCACert:  config.Vault.SSL.CaCert,
+		Address:     config.Vault.Address,
+		Token:       config.Vault.Token,
+		UnwrapToken: config.Vault.UnwrapToken,
+		SSLEnabled:  config.Vault.SSL.Enabled,
+		SSLVerify:   config.Vault.SSL.Verify,
+		SSLCert:     config.Vault.SSL.Cert,
+		SSLKey:      config.Vault.SSL.Key,
+		SSLCACert:   config.Vault.SSL.CaCert,
 	}); err != nil {
 		return nil, fmt.Errorf("runner: %s", err)
 	}

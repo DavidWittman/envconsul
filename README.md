@@ -31,31 +31,33 @@ This process will create `bin/envconsul` which may be invoked as a binary.
 Usage
 -----
 ### Options
-|       Option      | Description |
-| ----------------- |------------ |
-| `auth`            | The basic authentication username (and optional password), separated by a colon. There is no default value.
-| `consul`*         | The location of the Consul instance to query (may be an IP address or FQDN) with port.
-| `max-stale`       | The maximum staleness of a query. If specified, Consul will distribute work among all servers instead of just the leader. The default value is 0 (none).
-| `ssl`             | Use HTTPS while talking to Consul. Requires the Consul server to be configured to serve secure connections. The default value is false.
-| `ssl-ca-cert`     | Path to a CA certificate file, containing one or more CA certificates to use to validate the certificate sent by the consul server to us. This is a handy alternative to setting ```--ssl-verify=false``` if you are using your own CA.
-| `ssl-cert`        | Path to an SSL client certificate to use to authenticate to the consul server. Useful if the consul server "verify_incoming" option is set.
-| `ssl-verify`      | Verify certificates when connecting via SSL. This requires the use of `-ssl`. The default value is true.
-| `syslog`          | Send log output to syslog (in addition to stdout and stderr). The default value is false.
-| `syslog-facility` | The facility to use when sending to syslog. This requires the use of `-syslog`. The default value is `LOCAL0`.
-| `token`           | The [Consul API token][Consul ACLs]. There is no default value.
-| `kill-signal`     | Kill signal to send to child process. Defaults to `SIGTERM` but can be one of `SIGHUP,SIGTERM,SIGINT,SIGQUIT,SIGUSR1,SIGUSR2`
-| `wait`            | The `minimum(:maximum)` to wait before rendering a command to fire, separated by a colon (`:`). If the optional maximum value is omitted, it is assumed to be 4x the required minimum value. There is no default value.
-| `retry`           | The amount of time to wait if Consul returns an error when communicating with the API. The default value is 5 seconds.
-| `prefix`          | A prefix to watch in Consul. This may be specified multiple times.
-| `secret`          | A secret to watch in Vault. This may be specified multiple times.
-| `sanitize`        | Replace invalid characters in keys to underscores.
-| `splay`           | The maximum time to wait before restarting the program, from which a random value is chosen.
-| `upcase`          | Convert all environment variable keys to uppercase.
-| `config`          | The path to a configuration file or directory of configuration files on disk, relative to the current working directory. Values specified on the CLI take precedence over values specified in the configuration file. There is no default value.
-| `log-level`       | The log level for output. This applies to the stdout/stderr logging as well as syslog logging (if enabled). Valid values are "debug", "info", "warn", and "err". The default value is "warn".
-| `pristine`       | Only use variables retrieved from consul, do not inherit existing environment variables.
-| `once`            | Run envconsul once and exit (as opposed to the default behavior of daemon). _(CLI-only)_
-| `version`         | Output version information and quit. _(CLI-only)_
+|       Option         | Description |
+| -------------------- |------------ |
+| `auth`               | The basic authentication username (and optional password), separated by a colon. There is no default value.
+| `consul`*            | The location of the Consul instance to query (may be an IP address or FQDN) with port.
+| `max-stale`          | The maximum staleness of a query. If specified, Consul will distribute work among all servers instead of just the leader. The default value is 0 (none).
+| `ssl`                | Use HTTPS while talking to Consul. Requires the Consul server to be configured to serve secure connections. The default value is false.
+| `ssl-ca-cert`        | Path to a CA certificate file, containing one or more CA certificates to use to validate the certificate sent by the consul server to us. This is a handy alternative to setting ```--ssl-verify=false``` if you are using your own CA.
+| `ssl-cert`           | Path to an SSL client certificate to use to authenticate to the consul server. Useful if the consul server "verify_incoming" option is set.
+| `ssl-verify`         | Verify certificates when connecting via SSL. This requires the use of `-ssl`. The default value is true.
+| `syslog`             | Send log output to syslog (in addition to stdout and stderr). The default value is false.
+| `syslog-facility`    | The facility to use when sending to syslog. This requires the use of `-syslog`. The default value is `LOCAL0`.
+| `token`              | The [Consul API token][Consul ACLs]. There is no default value.
+| `vault-token`        | The Vault API token. There is no default value.
+| `vault-unwrap-token` | Unwrap the provided Vault token using Vault's cubbyhole response wrapping. The default vault is false.
+| `kill-signal`        | Kill signal to send to child process. Defaults to `SIGTERM` but can be one of `SIGHUP,SIGTERM,SIGINT,SIGQUIT,SIGUSR1,SIGUSR2`
+| `wait`               | The `minimum(:maximum)` to wait before rendering a command to fire, separated by a colon (`:`). If the optional maximum value is omitted, it is assumed to be 4x the required minimum value. There is no default value.
+| `retry`              | The amount of time to wait if Consul returns an error when communicating with the API. The default value is 5 seconds.
+| `prefix`             | A prefix to watch in Consul. This may be specified multiple times.
+| `secret`             | A secret to watch in Vault. This may be specified multiple times.
+| `sanitize`           | Replace invalid characters in keys to underscores.
+| `splay`              | The maximum time to wait before restarting the program, from which a random value is chosen.
+| `upcase`             | Convert all environment variable keys to uppercase.
+| `config`             | The path to a configuration file or directory of configuration files on disk, relative to the current working directory. Values specified on the CLI take precedence over values specified in the configuration file. There is no default value.
+| `log-level`          | The log level for output. This applies to the stdout/stderr logging as well as syslog logging (if enabled). Valid values are "debug", "info", "warn", and "err". The default value is "warn".
+| `pristine`           | Only use variables retrieved from consul, do not inherit existing environment variables.
+| `once`               | Run envconsul once and exit (as opposed to the default behavior of daemon). _(CLI-only)_
+| `version`            | Output version information and quit. _(CLI-only)_
 
 \* = Required parameter
 

@@ -272,6 +272,18 @@ func (cli *CLI) parseFlags(args []string) (*Config, []string, bool, bool, error)
 	}), "syslog-facility", "")
 
 	flags.Var((funcVar)(func(s string) error {
+		config.Vault.Token = s
+		config.set("vault.token")
+		return nil
+	}), "vault-token", "")
+
+	flags.Var((funcBoolVar)(func(b bool) error {
+		config.Vault.UnwrapToken = b
+		config.set("vault.unwrap_token")
+		return nil
+	}), "vault-unwrap-token", "")
+
+	flags.Var((funcVar)(func(s string) error {
 		w, err := watch.ParseWait(s)
 		if err != nil {
 			return err
@@ -391,18 +403,29 @@ Usage: %s [options] <command>
 Options:
 
   -auth=<user[:pass]>          Set the basic authentication username (and password)
+
   -consul=<address>            Sets the address of the Consul instance
+
   -max-stale=<duration>        Set the maximum staleness and allow stale queries to
                                Consul which will distribute work among all servers
                                instead of just the leader
+
   -retry=<duration>            The amount of time to wait if Consul returns an
                                error when communicating with the API
   -ssl                         Use SSL when connecting to Consul
+
   -ssl-verify                  Verify certificates when connecting via SSL
+
   -token=<token>               Sets the Consul API token
+
+  -vault-token=<token>         Sets the Vault API token
+
+  -vault-unwrap-token          Unwrap the provided Vault API token (see Vault
+                               documentation for more information on this feature)
 
   -log-level=<level>           Set the logging level - valid values are "debug",
                                "info", "warn" (default), and "err"
+
   -syslog                      Send the output to syslog instead of standard error
                                and standard out. The syslog facility defaults to
                                LOCAL0 and can be changed using a configuration file
@@ -412,8 +435,10 @@ Options:
 
   -wait=<duration[:duration]>  Sets the 'minumum[:maximum]' amount of time to wait
                                before writing a triggering a restart
+
   -splay=<duration>            The maximum time to wait before sending kill signal
                                to the program, from which a random value is chosen
+
   -timeout=<duration>          Time to wait after sending kill signal to the
                                program before forcibly killing it
 
@@ -421,13 +446,16 @@ Options:
                                left to right, with the right-most result taking
                                precedence, including any values specified with
                                -secret
+
   -secret=<prefix>             A secret path to watch in Vault, multiple prefixes
                                are merged from left to right, with the right-most
                                result taking precedence, including any values
                                specified with -prefix
 
   -sanitize                    Replace invalid characters in keys to underscores
+
   -upcase                      Convert all environment variable keys to uppercase
+
   -pristine                    Only use variables retrieved from Consul, do not
                                inherit existing environment variables
 
@@ -437,5 +465,6 @@ Options:
   -config=<path>               Sets the path to a configuration file on disk
 
   -once                        Do not run the process as a daemon
+
   -version                     Print the version of this daemon
 `
