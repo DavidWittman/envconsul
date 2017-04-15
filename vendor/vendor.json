@@ -587,10 +587,10 @@
 			"revisionTime": "2017-01-12T20:04:58Z"
 		},
 		{
-			"checksumSHA1": "Iy8+LIQJjbgTINhAVQ5FBSbu1Hc=",
+			"checksumSHA1": "3xeTTZejqagwfwaYT8M3rq1Ixko=",
 			"path": "github.com/hashicorp/consul-template/dependency",
-			"revision": "50831a29d50adac2253f201f8fd91dd52f92c971",
-			"revisionTime": "2016-05-28T19:06:10Z"
+			"revision": "cfb9bd2acc93b849708ff98acbdabe25c1f56475",
+			"revisionTime": "2016-09-22T19:57:06Z"
 		},
 		{
 			"checksumSHA1": "oYlqE/F2YzymKn+oSTjsj3wTG0Q=",
@@ -965,10 +965,10 @@
 			"revisionTime": "2016-12-07T01:17:43Z"
 		},
 		{
-			"checksumSHA1": "x+SNyR4AXyXyKhiJOu/SJ+wqwcM=",
+			"checksumSHA1": "5kACSmR7CjdPVi46Gg/ATlViJp0=",
 			"path": "github.com/hashicorp/vault/api",
-			"revision": "f0b06cf68a3a6d69d0572be23f5035c38d1f3539",
-			"revisionTime": "2016-05-27T22:07:12Z"
+			"revision": "ebea1b7de866e784126d21473fd41b96fef14cd5",
+			"revisionTime": "2017-02-04T12:48:30Z"
 		},
 		{
 			"checksumSHA1": "l1kSRPJuRKGZRu/Kiaqwlslnq2k=",
@@ -981,6 +981,18 @@
 			"path": "github.com/hashicorp/vault/helper/awsutil",
 			"revision": "f0b06cf68a3a6d69d0572be23f5035c38d1f3539",
 			"revisionTime": "2016-05-27T22:07:12Z"
+		},
+		{
+			"checksumSHA1": "ft77GtqeZEeCXioGpF/s6DlGm/U=",
+			"path": "github.com/hashicorp/vault/helper/compressutil",
+			"revision": "f989af475a646b65d2cadeb316ebff720ed6a019",
+			"revisionTime": "2017-04-14T16:19:15Z"
+		},
+		{
+			"checksumSHA1": "yUiSTPf0QUuL2r/81sjuytqBoeQ=",
+			"path": "github.com/hashicorp/vault/helper/jsonutil",
+			"revision": "f989af475a646b65d2cadeb316ebff720ed6a019",
+			"revisionTime": "2017-04-14T16:19:15Z"
 		},
 		{
 			"checksumSHA1": "9GX8G2H82J9zV85ILRdjvphwE+0=",
@@ -1155,6 +1167,12 @@
 			"path": "github.com/samuel/go-zookeeper/zk",
 			"revision": "6eb1b09c6ce23f305f4c81bf748b22fbc6f3f9e9",
 			"revisionTime": "2016-05-18T21:29:40Z"
+		},
+		{
+			"checksumSHA1": "LeDiwCEvVQsZ+c+xIS2zllOZvKs=",
+			"path": "github.com/sethgrid/pester",
+			"revision": "4f4c0a67b6496764028e1ab9fd8dfb630282ed2f",
+			"revisionTime": "2017-04-08T21:24:09Z"
 		},
 		{
 			"checksumSHA1": "tHm2SMtuRfrwh6NnnymsuoJ6e0Q=",

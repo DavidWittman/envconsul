@@ -142,7 +142,7 @@ func (d *StoreKeyPrefix) Stop() {
 func ParseStoreKeyPrefix(s string) (*StoreKeyPrefix, error) {
 	// a(/b(/c))(@datacenter)
 	re := regexp.MustCompile(`\A` +
-		`(?P<prefix>[[:word:]\.\:\-\/]+)?` +
+		`(?P<prefix>[[:word:],\.\:\-\/]+)?` +
 		`(@(?P<datacenter>[[:word:]\.\-]+))?` +
 		`\z`)
 	names := re.SubexpNames()
@@ -162,6 +162,16 @@ func ParseStoreKeyPrefix(s string) (*StoreKeyPrefix, error) {
 	}
 
 	prefix, datacenter := m["prefix"], m["datacenter"]
+
+	// Empty prefix or nil prefix should default to "/"
+	if len(prefix) == 0 {
+		prefix = "/"
+	}
+
+	// Remove leading slash
+	if len(prefix) > 1 && prefix[0] == '/' {
+		prefix = prefix[1:len(prefix)]
+	}
 
 	kpd := &StoreKeyPrefix{
 		rawKey:     s,
